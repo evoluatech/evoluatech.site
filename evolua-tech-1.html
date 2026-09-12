@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evolua Tech — Pare de perder dinheiro</title>
+<meta name="description" content="Evolua Tech: sites, sistemas, aplicações e automações. O upgrade tecnológico que você não pode mais adiar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #030304;
+    --black-2: #08080b;
+    --black-3: #0e0e13;
+    --line: rgba(255,255,255,0.08);
+    --white: #f4f4f6;
+    --grey: #8b8b95;
+    --grey-dim: #55555f;
+    --blue: #ff3b33;
+    --blue-2: #ff5a3d;
+    --cyan: #ff3b33;
+    --violet: #ff7a46;
+    --violet-2: #ff9a5a;
+    --grad: linear-gradient(100deg, var(--cyan) 0%, var(--blue-2) 32%, var(--violet) 70%, var(--violet-2) 100%);
+    --grad-text: linear-gradient(95deg, var(--cyan) 0%, #ff5a3d 45%, var(--violet) 75%, var(--violet-2) 100%);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--violet);color:#fff;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  .wrap{max-width:1240px; margin:0 auto; padding:0 32px;}
+
+  h1,h2,h3{
+    font-family:'Archivo Black', 'Inter', sans-serif;
+    text-transform:uppercase;
+    line-height:0.98;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:22px 0;
+    background:linear-gradient(180deg, rgba(3,3,4,0.92) 0%, rgba(3,3,4,0) 100%);
+    transition:background .4s ease, backdrop-filter .4s ease, padding .3s ease;
+  }
+  header.scrolled{
+    background:rgba(5,5,7,0.85);
+    backdrop-filter:blur(14px);
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex; align-items:center; justify-content:space-between;}
+  .logo{
+    font-family:'Archivo Black', sans-serif;
+    font-size:22px;
+    letter-spacing:0.02em;
+    background:var(--grad-text);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .nav-cta{
+    border:1.5px solid rgba(255,255,255,0.25);
+    padding:10px 22px;
+    font-weight:700;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    border-radius:3px;
+    transition:all .25s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{
+    background:var(--white);
+    color:var(--black);
+    border-color:var(--white);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    padding:140px 0 100px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 90% 60% at 15% 15%, rgba(255,59,51,0.30), transparent 60%),
+      radial-gradient(ellipse 80% 55% at 90% 85%, rgba(255,122,70,0.28), transparent 60%),
+      var(--black);
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse 70% 70% at 50% 40%, black 0%, transparent 75%);
+    pointer-events:none;
+  }
+  .hero-glow{
+    position:absolute;
+    width:1100px; height:1100px;
+    border-radius:50%;
+    top:-450px; left:50%;
+    transform:translateX(-50%);
+    background:radial-gradient(circle, rgba(255,80,50,0.32) 0%, rgba(255,80,50,0) 65%);
+    filter:blur(10px);
+    animation:pulseGlow 9s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes pulseGlow{
+    0%,100%{opacity:0.6; transform:translateX(-50%) scale(1);}
+    50%{opacity:1; transform:translateX(-50%) scale(1.08);}
+  }
+  .hero-content{position:relative; z-index:2; max-width:920px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:12.5px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--violet-2);
+    margin-bottom:26px;
+    opacity:0; animation:riseIn .8s ease forwards; animation-delay:.1s;
+  }
+  .eyebrow::before{
+    content:''; width:26px; height:2px; background:var(--grad); display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6.4vw, 5.4rem);
+    color:var(--white);
+    margin-bottom:28px;
+    opacity:0; animation:riseIn .9s ease forwards; animation-delay:.25s;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:var(--grad-text);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{
+    font-size:clamp(1.05rem, 1.6vw, 1.35rem);
+    color:var(--grey);
+    font-weight:500;
+    max-width:640px;
+    line-height:1.55;
+    margin-bottom:44px;
+    opacity:0; animation:riseIn .9s ease forwards; animation-delay:.42s;
+  }
+  .hero-sub b{color:var(--white); font-weight:700;}
+  .hero-ctas{
+    display:flex; flex-wrap:wrap; gap:18px; align-items:center;
+    opacity:0; animation:riseIn .9s ease forwards; animation-delay:.58s;
+  }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--grad);
+    color:#fff;
+    font-weight:800;
+    font-size:15.5px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:19px 34px;
+    border-radius:4px;
+    box-shadow:0 12px 40px -8px rgba(255,59,51,0.5);
+    transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  }
+  .btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 50px -6px rgba(255,122,70,0.6);
+    filter:brightness(1.08);
+  }
+  .btn-secondary{
+    display:inline-flex; align-items:center; gap:10px;
+    color:var(--white);
+    font-weight:700;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:18px 8px;
+    border-bottom:1.5px solid rgba(255,255,255,0.3);
+    transition:border-color .25s ease, opacity .25s ease, gap .25s ease;
+  }
+  .btn-secondary:hover{border-color:var(--white); gap:16px;}
+
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(22px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    color:var(--grey-dim); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700;
+    z-index:2;
+  }
+  .scroll-cue .line{width:1px; height:34px; background:linear-gradient(var(--grey-dim), transparent); animation:scrollLine 2s ease-in-out infinite;}
+  @keyframes scrollLine{0%{transform:scaleY(0); transform-origin:top;} 50%{transform:scaleY(1); transform-origin:top;} 51%{transform-origin:bottom;} 100%{transform:scaleY(0); transform-origin:bottom;}}
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{position:relative; padding:150px 0;}
+  .section-tag{
+    font-size:12.5px; font-weight:800; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--grey-dim);
+    margin-bottom:18px;
+    display:block;
+  }
+  .reveal{
+    opacity:0; transform:translateY(36px);
+    transition:opacity .8s cubic-bezier(.2,.6,.2,1), transform .8s cubic-bezier(.2,.6,.2,1);
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- PROBLEM ---------- */
+  .problem{
+    background:var(--black-2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .problem-head h2{
+    font-size:clamp(2rem, 4.4vw, 3.4rem);
+    max-width:820px;
+    margin-bottom:70px;
+  }
+  .problem-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .problem-item{
+    background:var(--black-2);
+    padding:44px 40px;
+    transition:background .3s ease;
+  }
+  .problem-item:hover{background:var(--black-3);}
+  .problem-item .num{
+    font-family:'Archivo Black', sans-serif;
+    font-size:13px;
+    color:var(--violet-2);
+    letter-spacing:0.1em;
+    margin-bottom:16px;
+    display:block;
+  }
+  .problem-item p{
+    font-size:clamp(1.1rem, 1.6vw, 1.4rem);
+    font-weight:700;
+    color:var(--white);
+    line-height:1.35;
+    letter-spacing:-0.01em;
+  }
+  .problem-item p span{color:var(--grey);}
+  .problem-close{
+    margin-top:64px;
+    font-size:clamp(1.3rem, 2.4vw, 1.9rem);
+    font-weight:800;
+    max-width:760px;
+    line-height:1.4;
+    color:var(--white);
+  }
+  .problem-close b{
+    background:var(--grad-text);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--black);}
+  .services-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:40px;
+    margin-bottom:70px; flex-wrap:wrap;
+  }
+  .services-head h2{font-size:clamp(2rem, 4.4vw, 3.2rem); max-width:640px;}
+  .services-head p{color:var(--grey); font-size:1.05rem; max-width:340px; line-height:1.55; font-weight:500;}
+
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .service-card{
+    background:var(--black-2);
+    padding:40px 30px 34px;
+    position:relative;
+    overflow:hidden;
+    min-height:340px;
+    display:flex; flex-direction:column;
+    transition:background .35s ease, transform .35s ease;
+  }
+  .service-card::before{
+    content:'';
+    position:absolute; inset:0;
+    background:var(--grad);
+    opacity:0;
+    transition:opacity .4s ease;
+    z-index:0;
+  }
+  .service-card:hover::before{opacity:1;}
+  .service-card:hover{transform:translateY(-6px);}
+  .service-card > *{position:relative; z-index:1;}
+
+  .service-card .sicon{
+    position:relative;
+    width:58px; height:58px;
+    border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:auto;
+    background:rgba(255,255,255,0.04);
+    isolation:isolate;
+  }
+  .service-card .sicon::before{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:14px;
+    padding:1.4px;
+    background:linear-gradient(135deg, rgba(255,255,255,0.32), rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.32));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    transition:background .4s ease;
+    z-index:0;
+  }
+  .service-card:hover .sicon::before{
+    background:conic-gradient(from 0deg, var(--blue-2), var(--violet), var(--violet-2), var(--blue-2));
+    animation:ringSpin 2.6s linear infinite;
+  }
+  @keyframes ringSpin{ to{ transform:rotate(360deg);} }
+  .service-card .sicon svg{
+    width:28px; height:28px;
+    stroke:var(--white);
+    position:relative; z-index:1;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .service-card:hover .sicon svg{transform:scale(1.08) rotate(-4deg);}
+  .service-card .icon-dot{fill:var(--violet-2); stroke:none;}
+  .service-card .icon-pulse{
+    transform-origin:center;
+    animation:iconPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes iconPulse{
+    0%,100%{opacity:1;} 50%{opacity:0.35;}
+  }
+  .service-card .icon-draw{
+    stroke-dasharray:60;
+    stroke-dashoffset:60;
+    transition:stroke-dashoffset .7s ease;
+  }
+  .service-card:hover .icon-draw{stroke-dashoffset:0;}
+  .service-card h3{
+    font-size:1.4rem;
+    margin:28px 0 12px;
+    text-transform:none;
+    font-family:'Inter', sans-serif;
+    font-weight:900;
+    letter-spacing:-0.01em;
+  }
+  .service-card p{
+    color:var(--grey);
+    font-size:0.96rem;
+    line-height:1.55;
+    font-weight:500;
+    transition:color .35s ease;
+  }
+  .service-card:hover p{color:rgba(255,255,255,0.92);}
+  .service-card .tagnum{
+    position:absolute; top:34px; right:30px;
+    font-family:'Archivo Black', sans-serif;
+    font-size:12px; color:var(--grey-dim); letter-spacing:0.06em;
+    transition:color .35s ease;
+  }
+  .service-card:hover .tagnum{color:rgba(255,255,255,0.6);}
+
+  /* ---------- SOLUTION ---------- */
+  .solution{
+    background:var(--black-2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .solution-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:80px;
+    align-items:center;
+  }
+  .solution h2{
+    font-size:clamp(2.1rem, 4.6vw, 3.5rem);
+    margin-bottom:30px;
+  }
+  .solution h2 .accent{
+    background:var(--grad-text);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .solution-text p{
+    color:var(--grey);
+    font-size:1.1rem;
+    line-height:1.7;
+    font-weight:500;
+    margin-bottom:22px;
+  }
+  .solution-text p b{color:var(--white); font-weight:700;}
+  .solution-visual{
+    position:relative;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:46px 38px;
+    background:linear-gradient(160deg, rgba(255,59,51,0.14), rgba(255,122,70,0.14));
+    overflow:hidden;
+  }
+  .solution-visual::after{
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 80% 0%, rgba(201,107,245,0.25), transparent 55%);
+  }
+  .compare-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 0;
+    border-bottom:1px solid rgba(255,255,255,0.09);
+    position:relative; z-index:1;
+  }
+  .compare-row:last-child{border-bottom:none;}
+  .compare-row .label{font-size:0.85rem; color:var(--grey); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;}
+  .compare-row .old{color:var(--grey-dim); font-weight:700; text-decoration:line-through; font-size:1.02rem;}
+  .compare-row .new{
+    font-weight:800; font-size:1.05rem;
+    background:var(--grad-text);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- CTA BLOCK ---------- */
+  .cta-block{
+    padding:170px 0;
+    position:relative;
+    overflow:hidden;
+    background:var(--black);
+    text-align:center;
+  }
+  .cta-block::before{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,90,61,0.4), transparent 65%),
+      radial-gradient(ellipse 60% 50% at 20% 100%, rgba(255,59,51,0.28), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 100%, rgba(255,122,70,0.28), transparent 60%);
+  }
+  .cta-content{position:relative; z-index:1; max-width:820px; margin:0 auto;}
+  .cta-block h2{
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    margin-bottom:26px;
+    color:var(--white);
+  }
+  .cta-block h2 em{
+    font-style:normal;
+    background:var(--grad-text);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .cta-block .sub{
+    color:var(--grey);
+    font-size:1.15rem;
+    font-weight:500;
+    margin-bottom:50px;
+    line-height:1.6;
+  }
+  .cta-buttons{display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
+  .btn-lg{
+    padding:22px 44px;
+    font-size:16px;
+  }
+  .btn-outline{
+    display:inline-flex; align-items:center; gap:10px;
+    border:1.5px solid rgba(255,255,255,0.28);
+    color:var(--white);
+    font-weight:800;
+    font-size:15.5px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:20px 34px;
+    border-radius:4px;
+    transition:all .25s ease;
+  }
+  .btn-outline:hover{background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.6);}
+
+  .cta-note{
+    margin-top:36px;
+    font-size:0.85rem;
+    color:var(--grey-dim);
+    letter-spacing:0.02em;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--black-2);
+    border-top:1px solid var(--line);
+    padding:60px 0 34px;
+  }
+  .footer-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:40px; flex-wrap:wrap;
+    padding-bottom:44px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:28px;
+  }
+  .footer-logo{
+    font-family:'Archivo Black', sans-serif;
+    font-size:24px;
+    background:var(--grad-text);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    margin-bottom:14px;
+  }
+  .footer-tag{color:var(--grey); font-size:0.95rem; max-width:320px; line-height:1.55; font-weight:500;}
+  .footer-links{display:flex; gap:70px; flex-wrap:wrap;}
+  .footer-col h4{
+    font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--grey-dim);
+    font-weight:800; margin-bottom:16px;
+  }
+  .footer-col a{
+    display:block; color:var(--white); font-weight:600; font-size:0.95rem;
+    margin-bottom:10px; transition:color .2s ease;
+  }
+  .footer-col a:hover{color:var(--violet-2);}
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:14px;
+    font-size:0.82rem; color:var(--grey-dim); font-weight:500;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .problem-list{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr 1fr;}
+    .solution-grid{grid-template-columns:1fr; gap:50px;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    section{padding:100px 0;}
+    .services-grid{grid-template-columns:1fr;}
+    .cta-buttons{flex-direction:column; width:100%;}
+    .btn-lg, .btn-outline{width:100%; justify-content:center;}
+    .footer-links{gap:36px;}
+    .nav-cta{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+    <div class="logo">EVOLUA TECH</div>
+    <a class="nav-cta" href="https://wa.me/message/BR4Q7QCJBUO2C1" target="_blank" rel="noopener">Falar agora</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-content">
+    <span class="eyebrow">O problema não é o mercado</span>
+    <h1>Você não fatura mais <em>porque ainda faz do jeito velho.</em></h1>
+    <p class="hero-sub">Cada dia sem site, sistema ou automação é <b>dinheiro saindo do seu bolso e entrando no do concorrente.</b> Isso não é falta de sorte. É atraso tecnológico — e atraso tecnológico tem dono.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="https://wa.me/message/BR4Q7QCJBUO2C1" target="_blank" rel="noopener">Parar de perder dinheiro</a>
+      <a class="btn-secondary" href="https://www.instagram.com/evoluatechbr" target="_blank" rel="noopener">Ver no Instagram →</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Continue</span><span class="line"></span></div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="wrap">
+    <div class="problem-head reveal">
+      <span class="section-tag">Encare os fatos</span>
+      <h2>Não é o mercado que está te sabotando.<br>É você, mantendo processos que já morreram.</h2>
+    </div>
+
+    <div class="problem-list reveal">
+      <div class="problem-item">
+        <span class="num">01</span>
+        <p>Enquanto você adia, seu concorrente já vende <span>no automático, 24 horas por dia.</span></p>
+      </div>
+      <div class="problem-item">
+        <span class="num">02</span>
+        <p>Planilha, papel e "no boca a boca" não escalam. <span>Escalam sua frustração.</span></p>
+      </div>
+      <div class="problem-item">
+        <span class="num">03</span>
+        <p>Cada processo manual é uma hora que você <span>nunca mais recupera — nem fatura.</span></p>
+      </div>
+      <div class="problem-item">
+        <span class="num">04</span>
+        <p>Cliente que não te encontra online <span>vira cliente de quem investiu em tecnologia.</span></p>
+      </div>
+      <div class="problem-item">
+        <span class="num">05</span>
+        <p>"Depois eu resolvo" já custou meses de faturamento <span>que você nunca vai ver de volta.</span></p>
+      </div>
+      <div class="problem-item">
+        <span class="num">06</span>
+        <p>Sistema improvisado não é economia. <span>É prejuízo disfarçado de solução.</span></p>
+      </div>
+    </div>
+
+    <p class="problem-close reveal">Você pode continuar culpando a economia, a concorrência, o cliente. Ou pode admitir: <b>o gargalo é o seu operacional obsoleto — e isso tem solução hoje.</b></p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="services-head reveal">
+      <h2>Quatro formas de parar de sangrar dinheiro.</h2>
+      <p>Cada serviço existe para resolver um único problema: você deixando faturamento na mesa.</p>
+    </div>
+
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="tagnum">01</span>
+        <div class="sicon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2.5" y="4.5" width="19" height="15" rx="2.2"/>
+            <path d="M2.5 8.6h19"/>
+            <circle class="icon-dot" cx="5.1" cy="6.55" r="0.55"/>
+            <circle class="icon-dot" cx="7.3" cy="6.55" r="0.55"/>
+            <path class="icon-draw" d="M6 15.2l3.2-3.4 2.6 2.4 4.4-4.6" stroke-dasharray="14" stroke-dashoffset="14"/>
+            <circle class="icon-pulse icon-dot" cx="17.8" cy="9.4" r="1"/>
+          </svg>
+        </div>
+        <h3>Sites</h3>
+        <p>Se seu negócio não vende enquanto você dorme, ele está incompleto. Um site é a diferença entre ser encontrado e ser esquecido.</p>
+      </div>
+      <div class="service-card">
+        <span class="tagnum">02</span>
+        <div class="sicon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="4.6" r="2"/>
+            <circle cx="5" cy="17.4" r="2"/>
+            <circle cx="19" cy="17.4" r="2"/>
+            <path class="icon-draw" d="M11 6.5 6.6 15.6"/>
+            <path class="icon-draw" d="M13 6.5l4.4 9.1"/>
+            <path class="icon-draw" d="M7 17.4h10"/>
+          </svg>
+        </div>
+        <h3>Sistemas</h3>
+        <p>Planilha não é sistema, é remendo. Um sistema sob medida organiza sua operação e elimina o caos que está te custando clientes.</p>
+      </div>
+      <div class="service-card">
+        <span class="tagnum">03</span>
+        <div class="sicon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6.5" y="2.4" width="11" height="19.2" rx="2.4"/>
+            <path d="M11 18.4h2"/>
+            <rect class="icon-dot" x="9" y="6.1" width="2.5" height="2.5" rx="0.6"/>
+            <rect x="12.4" y="6.1" width="2.5" height="2.5" rx="0.6"/>
+            <rect x="9" y="9.5" width="2.5" height="2.5" rx="0.6"/>
+            <rect class="icon-dot" x="12.4" y="9.5" width="2.5" height="2.5" rx="0.6"/>
+            <circle class="icon-pulse icon-dot" cx="16.2" cy="4.9" r="1"/>
+          </svg>
+        </div>
+        <h3>Aplicações</h3>
+        <p>Se seu concorrente já está no bolso do cliente e você não, a decisão de compra já foi tomada — e não foi a seu favor.</p>
+      </div>
+      <div class="service-card">
+        <span class="tagnum">04</span>
+        <div class="sicon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path class="icon-draw" d="M4.2 12.3a7.8 7.8 0 0 1 13.2-5.7"/>
+            <path d="M17.3 3.2v3.6h-3.6"/>
+            <path class="icon-draw" d="M19.8 11.7a7.8 7.8 0 0 1-13.2 5.7"/>
+            <path d="M6.7 20.8v-3.6h3.6"/>
+            <path class="icon-pulse" d="M12.4 9.2 10.1 13h2.5l-1 2.6 3.4-4h-2.6z" fill="var(--violet-2)" stroke="none"/>
+          </svg>
+        </div>
+        <h3>Automações</h3>
+        <p>Toda tarefa repetitiva que você ainda faz na mão é tempo roubado do seu crescimento. Automatizar não é luxo, é sobrevivência.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="wrap solution-grid">
+    <div class="solution-text reveal">
+      <h2>Não existe "próximo passo".<br>Existe <span class="accent">este passo,</span> agora.</h2>
+      <p>Você já sabe que precisa mudar. Sabe disso há meses. O que falta não é clareza — <b>é parar de adiar a decisão que já está tomada.</b></p>
+      <p>A Evolua Tech não vende site, sistema, app ou automação como produto. Vende <b>o fim do operacional que está travando seu faturamento.</b></p>
+      <p>Enquanto você pensa se vale a pena, alguém no seu mercado já decidiu — e já está cobrando mais caro, atendendo mais rápido e vendendo mais.</p>
+    </div>
+    <div class="solution-visual reveal">
+      <div class="compare-row">
+        <span class="label">Operação manual</span>
+        <span class="old">Tempo perdido</span>
+      </div>
+      <div class="compare-row">
+        <span class="label">Operação automatizada</span>
+        <span class="new">Tempo revertido em faturamento</span>
+      </div>
+      <div class="compare-row">
+        <span class="label">Presença online inexistente</span>
+        <span class="old">Cliente indo pro concorrente</span>
+      </div>
+      <div class="compare-row">
+        <span class="label">Presença online estratégica</span>
+        <span class="new">Cliente chegando até você</span>
+      </div>
+      <div class="compare-row">
+        <span class="label">"Vou pensar mais um pouco"</span>
+        <span class="old">Prejuízo silencioso</span>
+      </div>
+      <div class="compare-row">
+        <span class="label">Decisão tomada hoje</span>
+        <span class="new">Vantagem que o concorrente não tem</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGH PRESSURE CTA -->
+<section class="cta-block">
+  <div class="wrap cta-content reveal">
+    <h2>Continuar do jeito que está<br>ou <em>consertar isso agora.</em></h2>
+    <p class="sub">Não existe uma terceira opção. Cada dia que passa sem tecnologia trabalhando por você é faturamento que já foi embora e não volta. A escolha é sua — mas ela é hoje.</p>
+    <div class="cta-buttons">
+      <a class="btn-primary btn-lg" href="https://wa.me/message/BR4Q7QCJBUO2C1" target="_blank" rel="noopener">Chamar no WhatsApp agora</a>
+      <a class="btn-outline btn-lg" href="mailto:evoluatechbr@gmail.com">Enviar e-mail</a>
+    </div>
+    <div class="cta-note">Resposta direta. Sem enrolação. <a href="https://www.instagram.com/evoluatechbr" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline; text-underline-offset:3px;">Ou fale no Instagram →</a></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">EVOLUA TECH</div>
+        <p class="footer-tag">Tecnologia para quem está cansado de perder dinheiro para quem já evoluiu.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <a href="https://wa.me/message/BR4Q7QCJBUO2C1" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="mailto:evoluatechbr@gmail.com">evoluatechbr@gmail.com</a>
+          <a href="https://www.instagram.com/evoluatechbr" target="_blank" rel="noopener">@evoluatechbr</a>
+        </div>
+        <div class="footer-col">
+          <h4>Serviços</h4>
+          <a href="#services">Sites</a>
+          <a href="#services">Sistemas</a>
+          <a href="#services">Aplicações</a>
+          <a href="#services">Automações</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Evolua Tech. Todos os direitos reservados.</span>
+      <span>evoluatechbr@gmail.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, {passive:true});
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15, rootMargin:'0px 0px -60px 0px'});
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
